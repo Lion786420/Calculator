@@ -41,11 +41,11 @@ number.forEach((num)=>num.addEventListener('click',(e)=>{
 }));
 operators.forEach((operator)=>operator.addEventListener('click',(e)=>{
     let displayLength=display.textContent.length;
-    let verdict=display.textContent[length-1]==='.'||display.textContent[length-1]==='/'||display.textContent[length-1]==='*'||display.textContent[length-1]==='+'||display.textContent[length-1]==='-';
+    let lastLetter=display.textContent.charAt(displayLength-1);
     if(display.textContent==''){
         display.textContent=`0${e.target.textContent}`;
-    }else if(verdict){
-        display.textContent=display.textContent.slice(0,length-5)+e.target.textContent;
+    }else if(lastLetter=='+'||lastLetter=='-'||lastLetter=='*'||lastLetter=='/'||lastLetter=='.'){
+        display.textContent=display.textContent.slice(0,length-1)+e.target.textContent;
     }else{
         display.textContent+=e.target.textContent;
     }
@@ -57,5 +57,11 @@ deleteItem.addEventListener('click',(e)=>{
     display.textContent=display.textContent.slice(0,display.textContent.length-1);
 });
 equal.addEventListener('click',(e)=>{
-    display.textContent=eval(display.textContent);
-})
+    let displayLength=display.textContent.length;
+    let lastLetter=display.textContent.charAt(displayLength-1);
+    if(lastLetter=='+'||lastLetter=='-'||lastLetter=='*'||lastLetter=='/'||lastLetter=='.'){
+        display.textContent=eval(display.textContent.slice(0,displayLength-1))+lastLetter;
+    }else{
+        display.textContent=eval(display.textContent);
+    }
+});
